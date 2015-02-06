@@ -1,10 +1,10 @@
 
 public class Frame {
-    private int score = 0;
-    private int scoreType = 0;
-    private int currentFrame = 0;
-    private int turn = 0;
-    private int totalPins = 10;
+    private int score = 0; // score of the frame
+    private int scoreType = 0; //type of score 0-9, 10 spare, 11 strike,
+    private int currentFrame = 0; //specific frame
+    private int turn = 0; // turn of the frame
+    private int totalPins = 10; // total pins of the frame
     
     
     public Frame(int t){
@@ -23,12 +23,20 @@ public class Frame {
     public int getCurrentTurn(){
     	return turn;
     }
-    public int throww(int remainingPins){
+    public boolean isFrameOver(){
+    	return turn>1;
+    }
+    public void setScore(int score){
+    	this.score = score;
+    }
+    public void throww(int remainingPins){
     	if(turn > 1) throw new IllegalStateException();
     	if(0<=remainingPins && remainingPins > totalPins)
     	if(remainingPins == 0){
-    		if(turn == 0)
+    		if(turn == 0){
     			scoreType = 11;
+    			turn = 2; // to make sure another throww is not used again on this frame
+    		}
     		else
     			scoreType = 10;
     		turn++;
@@ -39,7 +47,7 @@ public class Frame {
     		turn++;
     		scoreType = 10-totalPins;
     	}
-    	return scoreType;
+    	
     }
     
 }
