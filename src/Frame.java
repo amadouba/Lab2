@@ -29,24 +29,26 @@ public class Frame {
     public void setScore(int score){
     	this.score = score;
     }
-    public void throww(int remainingPins){
+    public void throww(int knockedPins){
     	if(turn > 1) throw new IllegalStateException();
-    	if(0<=remainingPins && remainingPins > totalPins)
-    	if(remainingPins == 0){
-    		if(turn == 0){
-    			scoreType = 11;
-    			turn = 2; // to make sure another throww is not used again on this frame
-    		}
-    		else
-    			scoreType = 10;
-    		turn++;
-    		
+    	if(0<=knockedPins && knockedPins <= totalPins){
+    		if(knockedPins == 10){
+        		if(turn == 0){
+        			scoreType = 11;
+        			turn = 2; // to make sure another throww is not used again on this frame
+        		}
+        		else
+        			scoreType = 10;
+        		turn++;
+        		
+        	}
+        	else{
+        		totalPins = totalPins - knockedPins;
+        		turn++;
+        		scoreType = 10 - totalPins;
+        	}
     	}
-    	else{
-    		totalPins = remainingPins;
-    		turn++;
-    		scoreType = 10-totalPins;
-    	}
+    	
     	
     }
     
